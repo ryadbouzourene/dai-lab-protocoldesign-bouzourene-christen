@@ -99,7 +99,7 @@ sequenceDiagram
   participant Client
   participant Server
 
-  Client->>Server: pen TCP connection (port 55555)
+  Client->>Server: Open TCP connection (port 55555)
   Server->>Client: Welcome message with available operations
   Client->>Server: SUBTRACT 5 10
   Server->>Client: ERROR: Unsupported operation
