@@ -12,6 +12,8 @@ The client closes the connection by sending a specific message when its calculat
 
 ## Messages
 
+When the connection is established, the server speaks first by sending a welcome message listing the available operations.
+
 ### Client messages
 
 The messages sent by the client consist of an operation specified by its name and operands or an exit message. 
