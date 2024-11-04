@@ -26,7 +26,7 @@ ADD <operand1> <operand2>
 MULTIPLY <operand1> <operand2>
 ```
 
-##### EXIT
+##### Exit
 
 ```
 EXIT
@@ -53,14 +53,14 @@ RESULT: <operation_result>
 ##### Error
 
 ```
-Error: <error_message>
+ERROR: <error_message>
 ```
 
 ```
 <error_message> ::= "Unsupported operation" | "Invalid operand(s)"
 ```
 
-##### GOODBYE
+##### Goodbye
 
 Its purpose is to inform the client that the connection is closed.
 
@@ -100,7 +100,7 @@ sequenceDiagram
   Client->>Server: pen TCP connection (port 55555)
   Server->>Client: Welcome message with available operations
   Client->>Server: SUBTRACT 5 10
-  Server->>Client: Error: Unsupported operation
+  Server->>Client: ERROR: Unsupported operation
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
@@ -116,7 +116,7 @@ sequenceDiagram
   Client->>Server: Open TCP connection (port 55555)
   Server->>Client: Welcome message with available operations
   Client->>Server: ADD 5 four
-  Server->>Client: Error: Invalid operand(s)
+  Server->>Client: ERROR: Invalid operand(s)
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
