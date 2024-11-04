@@ -34,12 +34,12 @@ EXIT
 
 ### Server messages
 
-The messages sent by the server consists of the available operations, a RESULT, an ERROR or a GOODBYE.
+The messages sent by the server consists of a welcome message, a RESULT, an ERROR or a GOODBYE.
 
-##### Available operations
+##### Welcome message
 
 ```
-Here is the list of the available operations :
+Welcome ! Here is the list of the available operations :
 - ADD <operand1> <operand2>
 - MULTIPLY <operand1> <operand2>
 ```
