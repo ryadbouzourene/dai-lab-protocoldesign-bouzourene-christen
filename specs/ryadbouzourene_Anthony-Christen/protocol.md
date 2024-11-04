@@ -16,17 +16,16 @@ The client closes the connection by sending a specific message when its calculat
 
 The messages sent by the client consist of an operation specified by its name and operands or an exit message. 
 
-##### Operations format
+##### Operations
 
 ```
-OPERATION_NAME <operand1> <operand2>
+ADD <operand1> <operand2>
 ```
 
-##### Available operations
+```
+MULTIPLY <operand1> <operand2>
+```
 
-```
-OPERATION_NAME ::= ADD | MULTIPLY
-```
 ##### EXIT
 
 ```
@@ -35,18 +34,26 @@ EXIT
 
 ### Server messages
 
-The messages sent by the server consists of a RESULT, an ERROR or a GOODBYE.
+The messages sent by the server consists of the available operations, a RESULT, an ERROR or a GOODBYE.
+
+##### Available operations
+
+```
+Here is the list of the available operations :
+- ADD <operand1> <operand2>
+- MULTIPLY <operand1> <operand2>
+```
 
 ##### Success
 
 ```
-RESULT : <operation_result>
+RESULT: <operation_result>
 ```
 
 ##### Error
 
 ```
-Error : <error_message>
+Error: <error_message>
 ```
 
 ```
