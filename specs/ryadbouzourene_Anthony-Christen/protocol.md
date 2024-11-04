@@ -119,6 +119,8 @@ sequenceDiagram
   Server->>Client: Welcome message with available operations
   Client->>Server: ADD 5 four
   Server->>Client: ERROR: Invalid operand(s)
+  Client->>Server: ADD 5 4
+  Server->>Client: RESULT: 9
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
