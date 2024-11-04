@@ -68,6 +68,84 @@ Its purpose is to inform the client that the connection is closed.
 GOODBYE
 ```
 
+Messages are UTF-8 encoded with "\n" as end-of-line character.
+
 ## Example dialogs
 
-## Summary
+### Successful operations
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Client->>Server: Open TCP connection (port 55555)
+    Server->>Client: Welcome message with available operations
+    Client->>Server: ADD 5 10
+    Server->>Client: RESULT: 15
+    Client->>Server: MULTIPLY 2 100
+    Server->>Client: RESULT: 200
+    Client->>Server: EXIT
+    Server->>Client: GOODBYE
+    Client->>Server: Close TCP connection
+```
+
+### Error: Unsupported operation
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Server
+
+  Client->>Server: pen TCP connection (port 55555)
+  Server->>Client: Welcome message with available operations
+  Client->>Server: SUBTRACT 5 10
+  Server->>Client: Error: Unsupported operation
+  Client->>Server: EXIT
+  Server->>Client: GOODBYE
+  Client->>Server: Close TCP connection
+```
+
+### Error: Invalid operand
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Server
+
+  Client->>Server: Open TCP connection (port 55555)
+  Server->>Client: Welcome message with available operations
+  Client->>Server: ADD 5 four
+  Server->>Client: Error: Invalid operand(s)
+  Client->>Server: EXIT
+  Server->>Client: GOODBYE
+  Client->>Server: Close TCP connection
+```
+
+### Client closes connection
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Server
+
+  Client->>Server: Open TCP connection (port 55555)
+  Server->>Client: Welcome message with available operations
+  Client->>Server: EXIT
+  Server->>Client: GOODBYE
+  Client->>Server: Close TCP connection
+```
+
+### Server closes connection
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Server
+
+  Client->>Server: Open TCP connection (port 55555)
+  Server->>Client: Welcome message with available operations
+  Note over Client,Server: Client inactive for 5 minutes
+  Server->>Client: GOODBYE
+  Server->>Client: Close TCP connection
+```
