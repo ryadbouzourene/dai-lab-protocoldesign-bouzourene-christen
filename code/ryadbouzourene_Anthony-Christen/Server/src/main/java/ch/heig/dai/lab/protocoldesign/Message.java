@@ -34,6 +34,6 @@ public enum Message {
      * @return The formatted message as a String, ending with a newline.
      */
     public String formatMessage(String message) {
-        return this + ": " + message + "\n";
+        return this + " " + message + "\n";
     }
 }
