@@ -131,6 +131,8 @@ public class Server {
             result.append("\t- ").append(operation.getFormat()).append("\n");
         }
 
+        result.append("\n");
+
         return result.toString();
     }
 
