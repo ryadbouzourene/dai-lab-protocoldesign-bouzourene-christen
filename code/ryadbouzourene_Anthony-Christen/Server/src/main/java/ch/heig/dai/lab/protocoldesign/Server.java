@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 
 public class Server {
     // ------------------------------------------------------------------------------
@@ -22,6 +23,7 @@ public class Server {
     private final int SERVER_PORT = 4444;
     private final Charset ENCODING = StandardCharsets.UTF_8;
     private final int INACTIVITY_TIMEOUT = 5 * 60 * 1000; // milliseconds
+    private final DecimalFormat df = new DecimalFormat("#.00");
 
     // ------------------------------------------------------------------------------
     // Methods
@@ -102,7 +104,7 @@ public class Server {
                     continue;
                 }
 
-                out.write(Message.RESULT.formatMessage(Double.toString(result)));
+                out.write(Message.RESULT.formatMessage(df.format(result)));
                 out.flush();
             }
         } catch (SocketTimeoutException e) {
