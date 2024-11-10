@@ -1,3 +1,16 @@
+/**
+ * Client class that connects to a server to send and receive messages over a TCP
+ * connection. This client interacts with the server by sending commands, receiving
+ * responses, and handling different message types, including results, errors, and
+ * connection closure notifications.
+ *
+ * This implementation reads user input from the console, sends it to the server,
+ * and interprets server responses to display appropriate messages to the user.
+ *
+  @Authors Bouzourène Ryad & Christen Anthony
+  @Date    2024-11-08
+ */
+
 package ch.heig.dai.lab.protocoldesign;
 
 import java.io.*;
@@ -6,10 +19,17 @@ import java.nio.charset.*;
 import java.util.Arrays;
 
 public class Client {
-    // Constants defining the server port and character encoding used for communication
+
+    // ------------------------------------------------------------------------------
+    // Attributes
+    // ------------------------------------------------------------------------------
     private final int SERVER_PORT = 4444;
     private final String SERVER_IP;
     private final Charset ENCODING = StandardCharsets.UTF_8;
+
+    // ------------------------------------------------------------------------------
+    // Methods
+    // ------------------------------------------------------------------------------
 
     // Default constructor that sets the server IP to "localhost"
     public Client() {
