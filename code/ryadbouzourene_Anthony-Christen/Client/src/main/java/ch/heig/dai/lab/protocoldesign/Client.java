@@ -59,8 +59,8 @@ public class Client {
             var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), ENCODING));
             var scanner = new BufferedReader(new InputStreamReader(System.in, ENCODING));
 
-            String sendingLine = "";
-            String receptingLine = "";
+            String sendingLine ;
+            String receptingLine ;
 
             // Display the welcome message from the server until an empty line is received
             while ((receptingLine = in.readLine()) != null) {
