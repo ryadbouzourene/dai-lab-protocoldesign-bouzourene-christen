@@ -6,7 +6,7 @@ Our protocol defines the interactions between a client and a server whose purpos
 
 ## Transport layer protocol
 
-Our protocol uses TCP. The client establishes the connection, so it must know the IP address of the server. The server listens on TCP port 55555. When a client connects, the server sends a welcome message listing the available operations.
+Our protocol uses TCP. The client establishes the connection, so it must know the IP address of the server. The server listens on TCP port 4444. When a client connects, the server sends a welcome message listing the available operations.
 
 The client closes the connection by sending a specific message when its calculations are finished, or the server closes the connection if no messages have been sent by the client in the last 5 minutes.
 
@@ -49,17 +49,17 @@ Welcome ! Here is the list of the available operations :
 ##### Success
 
 ```
-RESULT: <operation_result>
+RESULT <operation_result>
 ```
 
 ##### Error
 
 ```
-ERROR: <error_message>
+ERROR <error_message>
 ```
 
 ```
-<error_message> ::= "Unsupported operation" | "Invalid operand(s)"
+<error_message> ::= "Unsupported operation '<operation>'" | "Invalid operand '<operand>'" | "Wrong number of operands. Expected <nbExpected> but got <nbOperands>"
 ```
 
 ##### Goodbye
@@ -81,12 +81,12 @@ sequenceDiagram
     participant Client
     participant Server
 
-    Client->>Server: Open TCP connection (port 55555)
+    Client->>Server: Open TCP connection (port 4444)
     Server->>Client: Welcome message with available operations
     Client->>Server: ADD 5 10
-    Server->>Client: RESULT: 15
+    Server->>Client: RESULT 15
     Client->>Server: MULTIPLY 2 100
-    Server->>Client: RESULT: 200
+    Server->>Client: RESULT 200
     Client->>Server: EXIT
     Server->>Client: GOODBYE
     Client->>Server: Close TCP connection
@@ -99,10 +99,10 @@ sequenceDiagram
   participant Client
   participant Server
 
-  Client->>Server: Open TCP connection (port 55555)
+  Client->>Server: Open TCP connection (port 4444)
   Server->>Client: Welcome message with available operations
   Client->>Server: SUBTRACT 5 10
-  Server->>Client: ERROR: Unsupported operation
+  Server->>Client: ERROR Unsupported operation
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
@@ -115,12 +115,12 @@ sequenceDiagram
   participant Client
   participant Server
 
-  Client->>Server: Open TCP connection (port 55555)
+  Client->>Server: Open TCP connection (port 4444)
   Server->>Client: Welcome message with available operations
   Client->>Server: ADD 5 four
-  Server->>Client: ERROR: Invalid operand(s)
+  Server->>Client: ERROR Invalid operand 'four'
   Client->>Server: ADD 5 4
-  Server->>Client: RESULT: 9
+  Server->>Client: RESULT 9
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
@@ -133,7 +133,7 @@ sequenceDiagram
   participant Client
   participant Server
 
-  Client->>Server: Open TCP connection (port 55555)
+  Client->>Server: Open TCP connection (port 4444)
   Server->>Client: Welcome message with available operations
   Client->>Server: EXIT
   Server->>Client: GOODBYE
@@ -147,7 +147,7 @@ sequenceDiagram
   participant Client
   participant Server
 
-  Client->>Server: Open TCP connection (port 55555)
+  Client->>Server: Open TCP connection (port 4444)
   Server->>Client: Welcome message with available operations
   Note over Client,Server: Client inactive for 5 minutes
   Server->>Client: GOODBYE
