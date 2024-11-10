@@ -102,7 +102,7 @@ sequenceDiagram
   Client->>Server: Open TCP connection (port 4444)
   Server->>Client: Welcome message with available operations
   Client->>Server: SUBTRACT 5 10
-  Server->>Client: ERROR Unsupported operation
+  Server->>Client: ERROR Unsupported operation 'SUBTRACT'
   Client->>Server: EXIT
   Server->>Client: GOODBYE
   Client->>Server: Close TCP connection
