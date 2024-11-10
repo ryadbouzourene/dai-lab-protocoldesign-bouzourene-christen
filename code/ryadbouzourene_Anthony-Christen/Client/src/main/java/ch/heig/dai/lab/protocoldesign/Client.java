@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.net.UnknownHostException;
-import java.util.Scanner;
 
 public class Client {
 
@@ -21,7 +20,7 @@ public class Client {
 
     public Client() throws UnknownHostException {
         // Initialise SERVER_IP avec l'adresse IP souhaitée
-        SERVER_IP = (Inet4Address) InetAddress.getByName("10.193.24.113"); 
+        SERVER_IP = (Inet4Address) InetAddress.getLocalHost(); 
     }
 
     public static void main(String[] args) {
@@ -39,34 +38,58 @@ public class Client {
         
     }
 
+    /**
+     * 
+     */
     private void run() {
         try(Socket socket = new Socket(SERVER_IP,SERVER_PORT);
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream(),ENCODING));
             var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), ENCODING));
-            var scanner = new Scanner(System.in)){
+            var scanner = new BufferedReader(new InputStreamReader(System.in, ENCODING))){
             
              
             String sendingLine = "";
             String receptingLine ="";
 
             //message de bienvenue 
-            for(int i = 0 ; i < 3 ; ++i){
-                receptingLine=in.readLine();
+            while((receptingLine=in.readLine()) != null ){
+                if(receptingLine.isEmpty())break ;
                 System.out.println(receptingLine);
             }
             
+            outerloop:
             while(true){
+                System.out.print("\n>");
 
-                sendingLine = scanner.nextLine();
+                sendingLine = scanner.readLine();
                 out.write(sendingLine + "\n");
                 out.flush();
 
                 receptingLine = in.readLine();
-                System.out.println(receptingLine);
-                if(receptingLine.equalsIgnoreCase("GOODBYE")){
-                    break;
-                }
+                String[] commandArgs = receptingLine.trim().split(" ");
+                
+                switch (commandArgs[0]) {
 
+                    case "RESULT":
+                        System.out.print("The result of the operation is : " + commandArgs[1]);
+                        break;
+                    case "ERROR" :
+                        System.out.print("An error occured : ");
+                        for (int i = 1; i < commandArgs.length; i++) {
+                            System.out.print(commandArgs[i] + " ");
+                        }
+                        break ;
+                    case "GOODBYE" :
+                        System.out.println("The connexion has closed");
+                        break outerloop ;
+                    default:
+                        System.out.print("Unknown message : ");
+                        for (int i = 0; i < commandArgs.length; i++) {
+                            System.out.print(commandArgs[i] + " ");
+                        }
+                        break;
+                }
+                
            }
 
             
