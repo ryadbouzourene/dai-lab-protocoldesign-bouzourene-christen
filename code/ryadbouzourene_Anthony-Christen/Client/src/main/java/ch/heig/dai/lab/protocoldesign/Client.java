@@ -1,11 +1,7 @@
 /**
  * Client class that connects to a server to send and receive messages over a TCP
  * connection. This client interacts with the server by sending commands, receiving
- * responses, and handling different message types, including results, errors, and
- * connection closure notifications.
- *
- * This implementation reads user input from the console, sends it to the server,
- * and interprets server responses to display appropriate messages to the user.
+ * responses, and displaying them.
  *
   @Authors Bouzourène Ryad & Christen Anthony
   @Date    2024-11-08
@@ -30,19 +26,21 @@ public class Client {
     // ------------------------------------------------------------------------------
     // Methods
     // ------------------------------------------------------------------------------
-
-    // Default constructor that sets the server IP to "localhost"
+    /**
+     * Default constructor that sets the server IP to "localhost"
+     */
     public Client() {
         SERVER_IP = "localhost";
     }
 
-    // Constructor that allows specifying a custom server IP address
+    /**
+     * Constructor that allows specifying a custom server IP address
+     */
     public Client(String serverIpAddress) {
         SERVER_IP = serverIpAddress;
     }
 
     public static void main(String[] args) {
-        // Create a new client and run it
         // Uncomment the following line to connect to a custom IP address
         // Client client = new Client("127.0.0.1");
         Client client = new Client();
@@ -54,7 +52,6 @@ public class Client {
      */
     private void run() {
         try (Socket socket = new Socket(SERVER_IP, SERVER_PORT)) {
-            // Create buffered readers and writers for communication
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream(), ENCODING));
             var out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), ENCODING));
             var scanner = new BufferedReader(new InputStreamReader(System.in, ENCODING));
@@ -68,7 +65,6 @@ public class Client {
                 System.out.println(receptingLine);
             }
 
-            // Main communication loop: sends and receives messages from the server
             while (true) {
                 System.out.print("> ");
                 
@@ -101,7 +97,7 @@ public class Client {
                         break;
                 }
 
-                System.out.println(); // Print a newline for readability
+                System.out.println();
             }
         } catch (IOException e) {
             System.out.println("Client: Exception occurred: " + e);
